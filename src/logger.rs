@@ -23,12 +23,13 @@ pub fn init(level: log::LevelFilter) {
 
             writeln!(
                 buf,
-                "{} {} {} >⩊< {}",
+                "{} {} {} {} {}",
                 level,
                 format!("[{}]", now.strftime("%H:%M:%S")).bright_black(),
                 format!("[{}:{}]", record.target(), record.line().unwrap_or(0))
                     .cyan()
                     .bold(),
+                ">⩊<".bright_black(),
                 record.args(),
             )
         })
