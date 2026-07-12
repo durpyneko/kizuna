@@ -1,0 +1,16 @@
+[package]
+name = "kizuna"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+axum = { version = "0.8.9" }
+env_logger = { version = "0.11.11" }
+jiff = { version = "0.2.32" }
+log = { version = "0.4.33" }
+owo-colors = { version = "4.3.0" }
+reqwest = { version = "0.13.4" }
+self-replace = { version = "1.5.0" }
+serde = { version = "1.0.228", features = ["derive"] }
+serde_json = { version = "1.0.150" }
+tokio = { version = "1.52.3", features = ["full"] }
