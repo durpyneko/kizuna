@@ -10,7 +10,7 @@ use {
 pub fn init(level: log::LevelFilter) {
     Builder::from_env(Env::default().default_filter_or(level.as_str()))
         .filter_level(LevelFilter::Warn) // deps
-        .filter_module(env!("CARGO_PKG_NAME"), level) // hide all exept self ps. ik ik
+        .filter_module(env!("CARGO_PKG_NAME"), level) // "hide" all exept self
         .format(|buf, record| {
             let level = match record.level() {
                 Level::Error => "[-]".red().bold().to_string(),
