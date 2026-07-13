@@ -15,6 +15,7 @@ pub async fn start() -> std::io::Result<()> {
     let app = Router::new()
         .route("/", get(routes::root))
         .route("/status", get(routes::status))
+        .route("/uptime", get(routes::uptime))
         .route("/self-update", post(routes::self_update))
         .layer(middleware::from_fn(log_requests));
 

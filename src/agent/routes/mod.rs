@@ -4,3 +4,5 @@ mod status;
 pub use status::status;
 mod self_updater;
 pub use self_updater::self_update;
+mod uptime;
+pub use uptime::uptime;
