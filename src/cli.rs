@@ -7,52 +7,46 @@ pub struct Command {
     pub description: &'static str,
 }
 
-pub const COMMANDS: &[Command] = &[
-    Command {
-        name: "agent",
-        aliases: &["-a"],
-        usage: "kizuna agent",
-        description: "Start the Kizuna agent.",
-    },
-    Command {
-        name: "connect",
-        aliases: &["-c"],
-        usage: "kizuna connect <host>",
-        description: "Connect to a remote agent.",
-    },
-    Command {
-        name: "update",
-        aliases: &["-u"],
-        usage: "kizuna update <url>",
-        description: "Update Kizuna from a remote binary.",
-    },
-];
+pub const COMMANDS: &[Command] = &[Command {
+    name: "agent",
+    aliases: &["-a"],
+    usage: "kizuna agent",
+    description: "Start the Kizuna agent.",
+}];
+
+impl Command {
+    pub fn matches(&self, input: &str) -> bool {
+        self.name == input || self.aliases.contains(&input)
+    }
+}
+
+pub fn find_command(input: &str) -> Option<&'static Command> {
+    COMMANDS.iter().find(|cmd| cmd.matches(input))
+}
 
 pub async fn handler(args: Vec<String>) -> std::io::Result<()> {
     let mut args_iter = args.iter();
     let (_exe, cmd, _arg) = (args_iter.next(), args_iter.next(), args_iter.next());
 
-    // println!("Exe: {:?}\nCMD: {:?}\nArg: {:?}", exe, cmd, arg);
+    let Some(cmd) = cmd else {
+        log::warn!("Please specify a command.");
+        print_help();
+        return Ok(());
+    };
 
-    match cmd.map(String::as_str) {
-        Some("-a") | Some("agent") => {
+    let Some(command) = find_command(cmd) else {
+        log::warn!("Unknown command: {}", cmd);
+        print_help();
+        return Ok(());
+    };
+
+    match command.name {
+        "agent" => {
             log::info!("Starting agent daemon...");
             agent::start().await?;
         }
 
-        Some("-h") | Some("help") => {
-            print_help();
-        }
-
-        Some(cmd) => {
-            log::warn!("Unknown command: {cmd}");
-            print_help();
-        }
-
-        None => {
-            log::warn!("Please specify a command.");
-            print_help();
-        }
+        _ => unreachable!(),
     }
 
     Ok(())
@@ -72,7 +66,7 @@ pub fn print_help() {
             cmd.aliases.join(", "),
             cmd.description
         );
-        println!("      Usage: {}", cmd.usage);
+        println!("\tUsage: {}", cmd.usage);
         println!();
     }
 }
