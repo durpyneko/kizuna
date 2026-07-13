@@ -53,7 +53,6 @@ pub async fn handler(args: Vec<String>) -> std::io::Result<()> {
 }
 
 pub fn print_help() {
-    // println!("{}", crate::common::BANNER);
     println!("Usage:");
     println!("  kizuna <command> [options]\n");
 
