@@ -4,7 +4,7 @@ use super::types::{CommandFuture, Subcommand};
 pub const COMMAND: Command = Command {
     name: "service",
     aliases: &["-s", "--service"],
-    usage: "kizuna service <install|uninstall|status>",
+    usage: "kizuna service <install|uninstall>",
     description: "Manage the Kizuna system service.",
     subcommands: Some(SUBCOMMANDS),
     handler: run,
@@ -18,10 +18,6 @@ pub const SUBCOMMANDS: &[Subcommand] = &[
     Subcommand {
         name: "uninstall",
         description: "Remove the user service.",
-    },
-    Subcommand {
-        name: "status",
-        description: "Show the service status.",
     },
 ];
 
