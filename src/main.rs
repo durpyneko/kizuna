@@ -2,6 +2,7 @@
 mod cli;
 mod common;
 mod logger;
+mod service;
 
 // features
 mod agent;
