@@ -23,7 +23,7 @@ async fn main() {
     println!(
         "{}                       {}\n",
         common::colored_banner(),
-        format!("{} {}", "version: ", env!("CARGO_PKG_VERSION")).truecolor(25, 25, 25)
+        format!("{} {}", "version:", env!("CARGO_PKG_VERSION")).truecolor(25, 25, 25)
     );
 
     let args: Vec<String> = env::args().collect();
