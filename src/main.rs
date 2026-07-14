@@ -6,6 +6,7 @@ mod logger;
 // features
 mod agent;
 
+use owo_colors::OwoColorize;
 use std::env;
 
 #[tokio::main]
@@ -19,9 +20,9 @@ async fn main() {
     logger::init(level);
 
     println!(
-        "{}                       version: {}\n",
-        common::BANNER,
-        env!("CARGO_PKG_VERSION")
+        "{}                       {}\n",
+        common::colored_banner(),
+        format!("{} {}", "version: ", env!("CARGO_PKG_VERSION")).truecolor(25, 25, 25)
     );
 
     let args: Vec<String> = env::args().collect();

@@ -1,3 +1,5 @@
+use owo_colors::OwoColorize;
+
 pub const BANNER: &str = r#"
  █████   ████  ███                                            
 ▒▒███   ███▒  ▒▒▒                                             
@@ -11,3 +13,34 @@ pub const BANNER: &str = r#"
                     ⊹₊˚‧︵‿₊୨ᰔ୧₊‿︵‧˚₊⊹
             https://github.com/durpyneko/kizuna
 "#;
+
+pub fn colored_banner() -> String {
+    let colors = [
+        (150, 120, 255),
+        (165, 110, 255),
+        (180, 100, 255),
+        (195, 90, 255),
+        (210, 80, 255),
+        (225, 70, 255),
+        (240, 60, 255),
+        (255, 50, 255),
+        (255, 40, 255),
+        (0, 0, 0),
+        (150, 50, 255),
+        (50, 50, 50),
+    ];
+
+    let mut out = String::new();
+
+    for (i, line) in BANNER.lines().enumerate() {
+        if i < colors.len() {
+            let (r, g, b) = colors[i];
+            out.push_str(&format!("{}\n", line.truecolor(r, g, b)));
+        } else {
+            out.push_str(line);
+            out.push('\n');
+        }
+    }
+
+    out
+}
