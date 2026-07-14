@@ -7,7 +7,6 @@ pub type CommandFuture = Pin<Box<dyn Future<Output = std::io::Result<()>> + Send
 pub struct Command {
     pub name: &'static str,
     pub aliases: &'static [&'static str],
-    pub usage: &'static str,
     pub description: &'static str,
     pub subcommands: Option<&'static [Subcommand]>,
     pub handler: Handler,

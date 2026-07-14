@@ -14,6 +14,16 @@ impl Command {
     pub fn print_help(&self) {
         print_help(Some(self));
     }
+
+    pub fn usage(&self) -> String {
+        match self.subcommands {
+            Some(subs) if !subs.is_empty() => {
+                let names = subs.iter().map(|s| s.name).collect::<Vec<_>>().join("|");
+                format!("kizuna {} <{}>", self.name, names)
+            }
+            _ => format!("kizuna {}", self.name),
+        }
+    }
 }
 
 pub fn find_command(input: &str) -> Option<&'static Command> {
@@ -61,7 +71,7 @@ pub fn print_help(command: Option<&Command>) {
             println!("{}", cmd.description);
             println!();
             println!("Usage:");
-            println!("  {}", cmd.usage);
+            println!("  {}", cmd.usage());
 
             if let Some(subcommands) = cmd.subcommands {
                 println!("\nSubcommands:");

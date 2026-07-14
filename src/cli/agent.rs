@@ -4,7 +4,6 @@ use super::types::CommandFuture;
 pub const COMMAND: Command = Command {
     name: "agent",
     aliases: &["-a", "--agent"],
-    usage: "kizuna agent",
     description: "Start the Kizuna agent.",
     subcommands: None,
     handler: run,
