@@ -1,6 +1,6 @@
 #[cfg(target_os = "linux")]
 mod linux;
-pub use linux::{install, status, uninstall};
+pub use linux::{install, uninstall};
 
 #[cfg(target_os = "windows")]
 fn install() {
