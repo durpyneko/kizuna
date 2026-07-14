@@ -1,5 +1,5 @@
-use super::types::{CommandFuture, Subcommand};
 use super::Command;
+use super::types::{CommandFuture, Subcommand};
 
 pub const COMMAND: Command = Command {
     name: "service",
@@ -35,7 +35,6 @@ pub fn run(args: Vec<String>) -> CommandFuture {
         match action.as_str() {
             "install" => crate::service::install(),
             "uninstall" => crate::service::uninstall(),
-            "status" => crate::service::status(),
             other => {
                 log::warn!("Unknown service subcommand: {}", other);
                 COMMAND.print_help();
