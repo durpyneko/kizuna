@@ -1,6 +1,13 @@
 use crate::agent;
 
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub enum Commands {
+    Agent,
+}
+
+#[derive(Debug, Clone)]
 pub struct Command {
+    pub kind: Commands,
     pub name: &'static str,
     pub aliases: &'static [&'static str],
     pub usage: &'static str,
@@ -8,6 +15,7 @@ pub struct Command {
 }
 
 pub const COMMANDS: &[Command] = &[Command {
+    kind: Commands::Agent,
     name: "agent",
     aliases: &["-a"],
     usage: "kizuna agent",
@@ -40,13 +48,11 @@ pub async fn handler(args: Vec<String>) -> std::io::Result<()> {
         return Ok(());
     };
 
-    match command.name {
-        "agent" => {
+    match command.kind {
+        Commands::Agent => {
             log::info!("Starting agent daemon...");
             agent::start().await?;
         }
-
-        _ => unreachable!(),
     }
 
     Ok(())
